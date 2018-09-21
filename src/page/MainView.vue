@@ -1,126 +1,165 @@
 <template lang="pug">
-  .root
-    .chat-wrapper
-      .empty-bar
-      .left-side-bar
-        .left-header
-          .header-image SL
-          .header-name soojung.lee
-          .header-status
-            .i.fas.fa-angle-down#logout-button
-        .left-input
-          .input-bar
-            .i.fas.fa-search
-            input(placeholder="검색 (CMD+K)")
-          .adder +
-        .left-body-part
-          .empty-part
-          .header-part 즐겨찾기 (1)
-          .item-part
-            .item-private.i.fas.fa-lock
-            .item-text class_level1
-            .item-view.i.far.fa-eye-slash.show
-            .item-status.i.fas.fa-sign-out-alt.show
-          .empty-part
-          .header-part 채널(1)
-          .item-part
-            .item-private.i.fas.fa-lock
-            .item-text general
-            .item-view.i.far.fa-eye-slash.show
-            .item-status.i.fas.fa-sign-out-alt.show
-        .left-footer TheTheChat
-      .main-part
-        .main-header
-          .i.far.fa-star
-          .i.fas.fa-lock
-          .header-text class_level1
+  .chat-wrapper
+    .empty-bar
+    .left-side-bar
+      .left-header
+        .header-image SL
+        .header-name soojung.lee
+        .header-status
+          .i.fas.fa-angle-down#logout-button
+      .left-input
+        .input-bar
+          .i.fas.fa-search
+          input(placeholder="검색 (CMD+K)")
+        .adder +
+      .left-body-part
+        .empty-part
+        .header-part 즐겨찾기 (1)
+        .item-part
+          .item-private.i.fas.fa-lock
+          .item-text class_level1
+          .item-view.i.far.fa-eye-slash.show
+          .item-status.i.fas.fa-sign-out-alt.show
+        .empty-part
+        .header-part 채널(1)
+        .item-part
+          .item-private.i.fas.fa-lock
+          .item-text general
+          .item-view.i.far.fa-eye-slash.show
+          .item-status.i.fas.fa-sign-out-alt.show
+      .left-footer TheTheChat
+    .main-part
+      .main-header
+        .i.far.fa-star
+        .i.fas.fa-lock
+        .header-text class_level1
 
-        .main-chatting
-          .chat-date
-            .date-line
-            .date-text 2018년 5월 25일
-            .date-line
-
-
-          .chat-content
-            .chat-image-zone
-              .chat-image.orange SL
-              .i.fas.fa-cog.display-none
-            .chat
-              .chat-profile-content
-                .profile-name sooojung.lee
-                .profile-owner-content
-                  .owner-text.admin Admin
-                  .owner-text.owner Owner
-                .profile-date 오후 1시 42분
-                .i.fas.fa-cog
-              .chat-text-content sdfsdfsdf sdfsd<br>fsdf sdf sdas<br>da
-                | fsd asdfsdfsd<br>f sdf sdasda fsd a
+      .main-chatting
+        .chat-date
+          .date-line
+          .date-text 2018년 5월 25일
+          .date-line
 
 
-          .chat-content
-            .chat-image-zone
-              .chat-image
+        .chat-content
+          .chat-image-zone
+            .chat-image.orange SL
+            .i.fas.fa-cog.display-none
+          .chat
+            .chat-profile-content
+              .profile-name sooojung.lee
+              .profile-owner-content
+                .owner-text.admin Admin
+                .owner-text.owner Owner
+              .profile-date 오후 1시 42분
               .i.fas.fa-cog
-            .chat
-              .chat-profile-content
-                .profile-name
-                .profile-owner-content
-                  .owner-text.admin
-                  .owner-text.owner
-                .profile-date
-                .i.fas.fa-cog.display-none
-              .chat-text-content sdfsdfsdf
+            .chat-text-content sdfsdfsdf sdfsd<br>fsdf sdf sdas<br>da
+              | fsd asdfsdfsd<br>f sdf sdasda fsd a
 
-        .main-input
-          .main-input-content
-            .input-bar
-              .i.far.fa-grin
-              textarea(placeholder='메세지')
-            .content-bar
-              .contents
-                .i.fas.fa-paperclip#upload-file-button
-                  input.display-none#hidden-upload-button(type="file" multiple)
-                .i.fas.fa-microphone
-                .i.fas.fa-video
-              .empty-content
-      .right-side-bar
-        .icon.i.fas.fa-info-circle
-        .icon.i.fas.fa-search
-        .icon.i.fas.fa-users
-        .icon.i.fas.fa-bell
-        .icon.i.fas.fa-paperclip
-        .icon.i.fas.fa-at
-        .icon.i.fas.fa-star
-        .icon.i.fas.fa-thumbtack
 
-    <!--.progress-window-->
-      <!--h1 Loading-->
-      <!--svg#load(x='0px', y='0px', viewBox='0 0 150 150')-->
-        <!--circle#loading-inner(cx='75', cy='75', r='60')-->
+        .chat-content
+          .chat-image-zone
+            .chat-image
+            .i.fas.fa-cog
+          .chat
+            .chat-profile-content
+              .profile-name
+              .profile-owner-content
+                .owner-text.admin
+                .owner-text.owner
+              .profile-date
+              .i.fas.fa-cog.display-none
+            .chat-text-content sdfsdfsdf
+        <!--chatting-log(:initial="'JH'" :name="'허재종'" :admin="'admin'"-->
+          <!--:date="'오후 3시 3분'" :textContent="'안녕하세요^^'")-->
+        chatting-log(v-for="chatting in chattingArray" v-bind="chatting")
+      .main-input
+        .main-input-content
+          .input-bar
+            .i.far.fa-grin
+            textarea(placeholder='메세지' v-model="inputText" v-on:keyup.enter="appendChat")
+          .content-bar
+            .contents
+              .i.fas.fa-paperclip#upload-file-button
+                input.display-none#hidden-upload-button(type="file" multiple)
+              .i.fas.fa-microphone
+              .i.fas.fa-video
+            .empty-content
+    .right-side-bar
+      .icon.i.fas.fa-info-circle
+      .icon.i.fas.fa-search
+      .icon.i.fas.fa-users
+      .icon.i.fas.fa-bell
+      .icon.i.fas.fa-paperclip
+      .icon.i.fas.fa-at
+      .icon.i.fas.fa-star
+      .icon.i.fas.fa-thumbtack
+
+  <!--.progress-window-->
+    <!--h1 Loading-->
+    <!--svg#load(x='0px', y='0px', viewBox='0 0 150 150')-->
+      <!--circle#loading-inner(cx='75', cy='75', r='60')-->
 </template>
 
 <script>
+import Vue from 'vue';
+import chattingLog from '../components/chatting-log';
+
+Vue.component(chattingLog.name, chattingLog);
+
 export default {
-  name: 'MainView'
+  name: 'MainView',
+  data() {
+    return {
+      inputText: '',
+      chattingArray: []
+    };
+  },
+  methods: {
+    appendChat() {
+      if (this.inputText.trim() !== '') {
+        this.chattingArray.push({
+          initial: 'JH',
+          name: 'jaejong.heo',
+          admin: 'admin',
+          date: this.getChatLogTime(new Date()),
+          textContent: this.inputText
+        });
+      }
+
+      this.inputText = '';
+      console.log(this.chattingArray);
+    },
+    getChatLogTime(date) {
+      let displayTime;
+      // const date = new Date(millisecondsTime);
+      let hours = date.getHours();
+      if (hours <= 12) { // 0 ~ 12시
+        displayTime = `오전 ${hours}시 ${date.getMinutes()}분`;
+      } else { // 13 ~ 24시
+        hours -= 12;
+        displayTime = `오후 ${hours}시 ${date.getMinutes()}분`;
+      }
+      return displayTime;
+    }
+  }
 };
+
 </script>
 
 <style scoped lang="sass">
+  @import url(https://fonts.googleapis.com/css?family=Roboto:400,300)
   @import "global"
 
   *
     box-sizing: border-box
-
-  body
-    padding: 0
-    margin: 0
   .display-none
     display: none !important
   .chat-wrapper
     width: 100%
     height: 100vh
     display: flex
+    font-family: 'Roboto', sans-serif
     .empty-bar
       width: 80px
       height: 100%
